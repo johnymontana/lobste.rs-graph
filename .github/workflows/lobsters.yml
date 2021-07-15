@@ -1,0 +1,21 @@
+name: Lobsters Data Import
+
+on:
+  push:
+    paths:
+      - .github/workflows/lobsters.yml
+  workflow_dispatch:
+  schedule:
+    - cron: '*/60 * * * *'
+    
+jobs:
+  scheduled:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+      - name: Fetch newest 
+        uses: githubocto/flat@v2
+        with:
+          http_url: https://lobste.rs/newest.json
+          downloaded_filename: newest.json

@@ -42,6 +42,7 @@ const neoSchema = new Neo4jGraphQL({typeDefs, driver})
 const apolloServer = new ApolloServer({
   schema: neoSchema.schema,
   playground: true,
+  introspection: true,
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
 });
 

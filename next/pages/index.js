@@ -103,18 +103,18 @@ export default function Home() {
   const { data } = useQuery(mostRecentQuery, {
     onCompleted: (data) => setGraphData(formatData(data)),
   });
-  const [loadMoreArticles, {called, loading, data: newData}] = useLazyQuery(
+  const [loadMoreArticles, { called, loading, data: newData }] = useLazyQuery(
     moreArticlesQuery,
     {
       onCompleted: (data) => {
-        const newSubgraph = formatData(data)
+        const newSubgraph = formatData(data);
         setGraphData({
-          nodes:_.uniqBy([...graphData.nodes, ...newSubgraph.nodes], 'id'),
-          links: [...graphData.links, ...newSubgraph.links]
-        })
-      }
+          nodes: _.uniqBy([...graphData.nodes, ...newSubgraph.nodes], "id"),
+          links: [...graphData.links, ...newSubgraph.links],
+        });
+      },
     }
-  )
+  );
 
   return (
     <NoSSRForceGraph
@@ -122,45 +122,52 @@ export default function Home() {
       nodeLabel={"id"}
       graphData={graphData}
       onNodeClick={(node, event) => {
-        console.log(node)
+        console.log(node);
         if (node.__typename === "Tag") {
-          loadMoreArticles({variables: {tag: node.id}})
+          loadMoreArticles({ variables: { tag: node.id } });
         } else if (node.__typename === "Article") {
-          window.open(node.url, '_blank')
+          window.open(node.url, "_blank");
         }
       }}
-      nodeCanvasObject={ (node, ctx, globalScale) => {
+      nodeCanvasObject={(node, ctx, globalScale) => {
         if (node.__typename === "Tag" || node.__typename === "Article") {
-          const label = node.title || node.id
-          const fontSize = 12 / globalScale
-          ctx.font = `${fontSize}px Sans-Serif`
-          const textWidth = ctx.measureText(label).width
+          const label = node.title || node.id;
+          const fontSize = 12 / globalScale;
+          ctx.font = `${fontSize}px Sans-Serif`;
+          const textWidth = ctx.measureText(label).width;
           const bckgDimensions = [textWidth, fontSize].map(
-            (n)=> n + fontSize * 0.2
-          )
-          ctx.fillStyle = `rgba(255, 255, 255, 0.8)`
-          ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions)
-          ctx.textAlign = 'center'
-          ctx.textBaseline = 'middle'
-          ctx.fillStyle = node.color
-          ctx.fillText(label, node.x, node.y)
+            (n) => n + fontSize * 0.2
+          );
+          ctx.fillStyle = `rgba(255, 255, 255, 0.8)`;
+          ctx.fillRect(
+            node.x - bckgDimensions[0] / 2,
+            node.y - bckgDimensions[1] / 2,
+            ...bckgDimensions
+          );
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = node.color;
+          ctx.fillText(label, node.x, node.y);
 
-          node.__bckgDimensions = bckgDimensions
-          } else if (node.__typename === "User") {
-            // TODO: draw image
-            const size = 12
-            const img = new Image()
-            img.src = node.avatar
-            ctx.drawImage(img, node.x - size / 2, node.y - size / 2, size, size)
-          }
+          node.__bckgDimensions = bckgDimensions;
+        } else if (node.__typename === "User") {
+          // TODO: draw image
+          const size = 12;
+          const img = new Image();
+          img.src = node.avatar;
+          ctx.drawImage(img, node.x - size / 2, node.y - size / 2, size, size);
+        }
       }}
-      nodePointerAreaPaint={ (node, color, ctx) => {
-        ctx.fillStyle = color
-        const bckgDimensions = node.__bckgDimensions
-        bckgDimensions && ctx.fillRect(node.x - bckgDimensions[0] / 2, node.y - bckgDimensions[1] / 2, ...bckgDimensions)
-      }
-
-      }
+      nodePointerAreaPaint={(node, color, ctx) => {
+        ctx.fillStyle = color;
+        const bckgDimensions = node.__bckgDimensions;
+        bckgDimensions &&
+          ctx.fillRect(
+            node.x - bckgDimensions[0] / 2,
+            node.y - bckgDimensions[1] / 2,
+            ...bckgDimensions
+          );
+      }}
     />
   );
 }

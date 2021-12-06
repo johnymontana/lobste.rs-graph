@@ -2,6 +2,8 @@
 
 This is a fullstack application built using Neo4j Aura, GraphQL, & Next.js to demonstrate the power of graph visualization and social network data using data from the [Lobsters](https://lobste.rs/) social news aggregator.
 
+![Architecture Diagram](img/archdiagram.png)
+
 ## Livestream Series
 
 This application is being built live on the [Neo4j livestream.](https://twitch.tv/neo4j) You can join live or find the recordings and write ups below:
@@ -12,7 +14,7 @@ This application is being built live on the [Neo4j livestream.](https://twitch.t
 
 ## Graph Data Model
 
-![](img/datamodel.png)
+![graph data model](img/datamodel.png)
 
 ## Data Import
 

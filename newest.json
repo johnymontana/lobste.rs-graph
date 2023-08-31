@@ -1,8 +1,1 @@
-<html>
-<head><title>Lobsters</title></head>
-<body>
-<p>
-<a href="https://everytimezone.com/?t=64ee8680,5cd">2023-08-30 19:00 (Chicago)</a>: bouncing web + db for kernel upgrades; fingers crossed. <a href="https://web.archive.org/web/20230812113716/https://lobste.rs/chat">#lobsters on libera IRC</a> We're updating from Ubuntu 20.04 to 22.04, it'll be a few minutes.
-</p>
-</body>
-</html>
+2023-08-30: Suffered a hardware failure during OS update, currently rebuilding web vps. Database vps is 100% fine and I took a backup 20m before the fun started anyways. Join #lobsters on libera for chat.

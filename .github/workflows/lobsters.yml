@@ -6,7 +6,7 @@ on:
       - .github/workflows/lobsters.yml
   workflow_dispatch:
   schedule:
-    - cron: '*/60 * * * *'
+    - cron: '0 0 5 31 2 ?'
     
 jobs:
   scheduled:
